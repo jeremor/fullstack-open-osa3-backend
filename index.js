@@ -1,6 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const path = require('path')
 const app = express()
 
 let persons = [
@@ -30,6 +31,7 @@ app.use(cors())
 app.use(express.json())
 morgan.token('body', (req, res) => JSON.stringify(req.body));
 app.use(morgan(':method :url :status :response-time ms - :body - :req[content-length]'));
+app.use(express.static(path.join(__dirname, 'build')))
 
 app.get('/api/info', (req, res) => {
   const today  = new Date().toString();
